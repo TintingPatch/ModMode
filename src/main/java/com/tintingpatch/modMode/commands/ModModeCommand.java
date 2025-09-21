@@ -3,6 +3,7 @@ package com.tintingpatch.modMode.commands;
 import com.tintingpatch.modMode.ModMode;
 import com.tintingpatch.modMode.managers.AttributeManager;
 import com.tintingpatch.modMode.managers.ModeManager;
+import com.tintingpatch.modMode.managers.NotificationManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
@@ -26,12 +27,12 @@ public class ModModeCommand implements CommandExecutor, TabCompleter {
                     if(ModeManager.isInModMode(player.getUniqueId())){
                         ModeManager.setInModMode(player, false);
                         player.sendMessage(ModMode.getInstance().getConfig().getString("prefix") + "§r " + ModMode.getInstance().getConfig().getString("messages.leavemodmode"));
-                        player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 1f);
                     }else {
                         ModeManager.setInModMode(player, true);
                         player.sendMessage(ModMode.getInstance().getConfig().getString("prefix") + "§r " + ModMode.getInstance().getConfig().getString("messages.entermodmode"));
-                        player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 1f);
                     }
+                    player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 1f);
+                    return true;
                 }else {
                     sendHelp(commandSender);
                 }
@@ -49,7 +50,7 @@ public class ModModeCommand implements CommandExecutor, TabCompleter {
             if(commandSender instanceof Player){
                 Player player = (Player) commandSender;
                 if(args[0].equals("gamemode")){
-                    if(!ModMode.getInstance().getConfig().getBoolean("allowGamemodeChangeOutsideModMode") || !ModeManager.isInModMode(player.getUniqueId())){
+                    if(!ModMode.getInstance().getConfig().getBoolean("allowGamemodeChangeOutsideModMode") && !ModeManager.isInModMode(player.getUniqueId())){
                         player.sendMessage(ModMode.getInstance().getConfig().getString("messages.playerHasToBeInModMode"));
                         return true;
                     }
@@ -64,6 +65,12 @@ public class ModModeCommand implements CommandExecutor, TabCompleter {
                                 player.setGameMode(GameMode.SURVIVAL);
                                 player.sendMessage(ModMode.getInstance().getConfig().getString("messages.changedGamemode").replace("%gamemode%", "SURVIVAL"));
                                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
+                                AttributeManager.refreshAttributes(player);
+                                if(ModMode.getInstance().getConfig().getBoolean("notifySurvival")){
+                                    NotificationManager.addNotification(player);
+                                }else {
+                                    NotificationManager.endTimer(player.getUniqueId());
+                                }
                             }else {
                                 player.sendMessage("§c" + ModMode.getInstance().getConfig().getString("messages.nopermissions"));
                                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 1f);
@@ -79,6 +86,12 @@ public class ModModeCommand implements CommandExecutor, TabCompleter {
                                 player.setGameMode(GameMode.CREATIVE);
                                 player.sendMessage(ModMode.getInstance().getConfig().getString("messages.changedGamemode").replace("%gamemode%", "CREATIVE"));
                                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
+                                AttributeManager.refreshAttributes(player);
+                                if(ModMode.getInstance().getConfig().getBoolean("notifyCreative")){
+                                    NotificationManager.addNotification(player);
+                                }else {
+                                    NotificationManager.endTimer(player.getUniqueId());
+                                }
                             }else {
                                 player.sendMessage("§c" + ModMode.getInstance().getConfig().getString("messages.nopermissions"));
                                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 1f);
@@ -94,6 +107,12 @@ public class ModModeCommand implements CommandExecutor, TabCompleter {
                                 player.setGameMode(GameMode.SPECTATOR);
                                 player.sendMessage(ModMode.getInstance().getConfig().getString("messages.changedGamemode").replace("%gamemode%", "SPECTATOR"));
                                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
+                                AttributeManager.refreshAttributes(player);
+                                if(ModMode.getInstance().getConfig().getBoolean("notifySpectator")){
+                                    NotificationManager.addNotification(player);
+                                }else {
+                                    NotificationManager.endTimer(player.getUniqueId());
+                                }
                             }else {
                                 player.sendMessage("§c" + ModMode.getInstance().getConfig().getString("messages.nopermissions"));
                                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 1f);

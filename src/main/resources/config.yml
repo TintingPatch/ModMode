@@ -44,3 +44,4 @@ messages:
   notInvincible: "§aYou are not longer invincible."
   allowAttack: "§aYou are now able to attack."
   notAllowAttack: "§aYou are not longer able to attack."
+  notification: "§aYou are in the ModMode."

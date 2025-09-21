@@ -1,12 +1,15 @@
 package com.tintingpatch.modMode;
 
 import com.tintingpatch.modMode.commands.ModModeCommand;
+import com.tintingpatch.modMode.listeners.AttackListener;
+import com.tintingpatch.modMode.listeners.JoinQuitListeners;
 import com.tintingpatch.modMode.utils.CustomConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ModMode extends JavaPlugin {
     //TODO: Notification
+    //TODO: Time Checkup
 
 
     static CustomConfig customConfig;
@@ -28,6 +31,8 @@ public final class ModMode extends JavaPlugin {
 
     void register(){
         Bukkit.getPluginCommand("modmode").setExecutor(new ModModeCommand());
+        Bukkit.getPluginManager().registerEvents(new AttackListener(), this);
+        Bukkit.getPluginManager().registerEvents(new JoinQuitListeners(), this);
     }
 
     @Override
