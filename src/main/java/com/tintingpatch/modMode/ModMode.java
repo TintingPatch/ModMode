@@ -6,7 +6,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ModMode extends JavaPlugin {
-    //TODO: Complete ModeManager
     //TODO: Notification
 
 
