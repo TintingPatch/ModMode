@@ -1,0 +1,46 @@
+#Mod Mode by TintingPatch
+
+#reset player position after mod mode
+resetPos: true
+
+#The time it takes to send the mod a notification he is still in mod mode (in seconds)
+notificationPeriod: 60
+
+#If the mod should also be notified in game modes (survival includes adventure)
+notifyCreative: true
+notifySurvival: true
+notifySpectator: false
+
+#standart attributes
+modsGlow: true
+allowFlight: true
+allowInvincible: true
+allowAttack: true
+
+#perms
+allowGamemodeChangeOutsideModMode: false
+
+#mod mode time checkup duration
+checkUpWeeks: 1
+checkupDays: 0
+checkupHours: 0
+
+#messages (use minecraft colorcodes with §)
+prefix: "§7[§cMod§6Mode§7]§r"
+messages:
+  nopermissions: "§cYou do not have enough permissions to use this command."
+  unknownCommand: "§cUnknown command - see /modmode help"
+  executorHasToBePlayer: "§cYou have to be a player to use this command."
+  playerHasToBeInModMode: "§cYou have to be in ModMode to use this command."
+  entermodmode: "§aEntered ModMode§7."
+  leavemodmode: "§aLeft ModMode§7."
+  changedGamemode: "§aChanged gamemode to §c%gamemode%§7."
+  alreadyInGamemode: "§aAlready in gamemode §c%gamemode%§7."
+  glowing: "§aYou are now glowing."
+  notGlowing: "§aYou are not longer glowing."
+  allowFlight: "§aYour are now able to fly."
+  notAllowFlight: "§aYou no longer able to fly."
+  invincible: "§aYou are now invincible."
+  notInvincible: "§aYou are not longer invincible."
+  allowAttack: "§aYou are now able to attack."
+  notAllowAttack: "§aYou are not longer able to attack."

@@ -1,0 +1,28 @@
+name: ModMode
+version: '1.0-SNAPSHOT'
+main: com.tintingpatch.modMode.ModMode
+api-version: '1.21'
+
+commands:
+  modmode:
+    aliases:
+      - mod
+
+
+permissions:
+  modmode.enter:
+    default: op
+  modmode.gamemode.creative:
+    default: op
+  modmode.gamemode.survival:
+    default: op
+  modmode.gamemode.spectator:
+    default: op
+  modmode.attribute.changeglowing:
+    default: op
+  modmode.attribute.changeallowflight:
+    default: op
+  modmode.attribute.changeinvincible:
+    default: op
+  modmode.attribute.changeallowattack:
+    default: op
