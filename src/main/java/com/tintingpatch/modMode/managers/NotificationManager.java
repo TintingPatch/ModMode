@@ -19,7 +19,6 @@ public class NotificationManager {
             @Override
             public void run() {
                 timer++;
-                ModMode.getInstance().getLogger().info(""+timer);
                 if(timer > ModMode.getInstance().getConfig().getInt("notificationPeriod")){
                     timer = 0;
                     player.sendMessage(ModMode.getInstance().getConfig().getString("messages.notification"));

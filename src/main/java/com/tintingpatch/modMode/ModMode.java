@@ -3,17 +3,18 @@ package com.tintingpatch.modMode;
 import com.tintingpatch.modMode.commands.ModModeCommand;
 import com.tintingpatch.modMode.listeners.AttackListener;
 import com.tintingpatch.modMode.listeners.JoinQuitListeners;
+import com.tintingpatch.modMode.managers.BStatsManager;
 import com.tintingpatch.modMode.utils.CustomConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ModMode extends JavaPlugin {
-    //TODO: Notification
     //TODO: Time Checkup
 
 
     static CustomConfig customConfig;
     static ModMode instance;
+    final int pluginID = 27334;
 
     @Override
     public void onEnable() {
@@ -27,6 +28,7 @@ public final class ModMode extends JavaPlugin {
         saveDefaultConfig();
         customConfig = new CustomConfig("data.yml", getDataFolder());
         register();
+        BStatsManager bStatsManager = new BStatsManager(this, pluginID);
     }
 
     void register(){

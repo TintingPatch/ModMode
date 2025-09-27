@@ -1,50 +1,43 @@
 package com.tintingpatch.modMode.listeners;
 
 import com.tintingpatch.modMode.ModMode;
-import com.tintingpatch.modMode.managers.AttributeManager;
 import com.tintingpatch.modMode.managers.ModeManager;
 import com.tintingpatch.modMode.managers.NotificationManager;
-import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerGameModeChangeEvent;
 
-public class JoinQuitListeners implements Listener {
+public class GamemodeSwitchListener implements Listener {
     @EventHandler
-    public void joinEvent(PlayerJoinEvent event){
+    public void onGamemodeSwitch(PlayerGameModeChangeEvent event){
         Player player = event.getPlayer();
-        AttributeManager.refreshAttributes(player);
         if(ModeManager.isInModMode(player.getUniqueId())){
-
-            switch (player.getGameMode()){
-                case GameMode.CREATIVE:
+            switch (event.getNewGameMode()){
+                case CREATIVE:
                     if(ModMode.getInstance().getConfig().getBoolean("notifyCreative")){
                         NotificationManager.addNotification(player);
                     }else {
                         NotificationManager.endTimer(player.getUniqueId());
                     }
                     break;
-                case GameMode.SPECTATOR:
-                    if(ModMode.getInstance().getConfig().getBoolean("notifySpectator")){
-                        NotificationManager.addNotification(player);
-                    }else {
-                        NotificationManager.endTimer(player.getUniqueId());
-                    }
-                case GameMode.SURVIVAL:
+                case SURVIVAL:
                     if(ModMode.getInstance().getConfig().getBoolean("notifySurvival")){
                         NotificationManager.addNotification(player);
                     }else {
                         NotificationManager.endTimer(player.getUniqueId());
                     }
+                    break;
+                case SPECTATOR:
+                    if(ModMode.getInstance().getConfig().getBoolean("notifySpectator")){
+                        NotificationManager.addNotification(player);
+                    }else {
+                        NotificationManager.endTimer(player.getUniqueId());
+                    }
+                    break;
+                default:
+                    break;
             }
         }
-    }
-
-    @EventHandler
-    public void quitEvent(PlayerQuitEvent event){
-        Player player = event.getPlayer();
-        NotificationManager.endTimer(player.getUniqueId());
     }
 }

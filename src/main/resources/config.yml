@@ -20,11 +20,6 @@ allowAttack: true
 #perms
 allowGamemodeChangeOutsideModMode: false
 
-#mod mode time checkup duration
-checkUpWeeks: 1
-checkupDays: 0
-checkupHours: 0
-
 #messages (use minecraft colorcodes with §)
 prefix: "§7[§cMod§6Mode§7]§r"
 messages:

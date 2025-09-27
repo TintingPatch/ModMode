@@ -35,10 +35,13 @@ public class AttributeManager {
             }
         }else {
             player.setGlowing(false);
-            if(player.getGameMode() == GameMode.CREATIVE){
+            if(player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR){
                 player.setAllowFlight(true);
             }else {
                 player.setAllowFlight(false);
+            }
+            if(player.getGameMode() == GameMode.SPECTATOR){
+                player.setFlying(true);
             }
             if(invinciblePlayers.contains(player.getUniqueId())){
                 invinciblePlayers.remove(player.getUniqueId());
