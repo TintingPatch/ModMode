@@ -2,6 +2,7 @@ name: ModMode
 version: '1.0'
 main: com.tintingpatch.modMode.ModMode
 api-version: '1.21'
+author: "TintingPatch"
 
 commands:
   modmode:
