@@ -141,7 +141,7 @@ public class ModModeCommand implements CommandExecutor, TabCompleter {
                             AttributeManager.refreshAttributes(player);
                             player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
                             break;
-                        case "toggleinvinvible":
+                        case "toggleinvincible":
                             if(!player.hasPermission("modmode.attribute.changeinvincible")){
                                 player.sendMessage("§c" + ModMode.getInstance().getConfig().getString("messages.nopermissions"));
                                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 1f);
@@ -256,7 +256,7 @@ public class ModModeCommand implements CommandExecutor, TabCompleter {
                         list.add("toggleallowflight");
                     }
                     if(commandSender.hasPermission("modmode.attribute.changeinvincible")){
-                        list.add("toggleinvinvible");
+                        list.add("toggleinvincible");
                     }
                     if(commandSender.hasPermission("modmode.attribute.changeallowattack")){
                         list.add("toggleallowattack");

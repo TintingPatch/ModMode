@@ -40,7 +40,7 @@ messages:
   allowAttack: "§aYou are now able to attack."
   notAllowAttack: "§aYou are not longer able to attack."
   notification: "§aYou are in the ModMode."
-  #only if ProtectedBlocks by TintingPatch is installed:
-  safetyBlocksNotInstalled: "§The SafetyBlocks plugin is not installed."
+  #only if SafetyBlocks by TintingPatch is installed:
+  safetyBlocksNotInstalled: "§cThe SafetyBlocks plugin is not installed."
   activatedBreakProtectedBlocks: "§aYou are now able to break protected blocks."
   deactivatedtoBreakProtectedBlocks: "§aYou are not longer able to break protected blocks."
