@@ -10,6 +10,7 @@ import java.util.UUID;
 public class AttributeManager {
     public static ArrayList<UUID> invinciblePlayers = new ArrayList<>();
     public static ArrayList<UUID> nonAttackingPlayers = new ArrayList<>();
+    public static ArrayList<UUID> breakingProtectedBlocks = new ArrayList<>();
 
     public static void refreshAttributes(Player player){
         if(ModeManager.isInModMode(player.getUniqueId())){
@@ -49,6 +50,7 @@ public class AttributeManager {
             if(nonAttackingPlayers.contains(player.getUniqueId())){
                 nonAttackingPlayers.remove(player.getUniqueId());
             }
+            if(breakingProtectedBlocks.contains(player.getUniqueId())) breakingProtectedBlocks.remove(player.getUniqueId());
         }
 
     }
@@ -103,5 +105,17 @@ public class AttributeManager {
         }
         ModMode.getCustomConfig().set("attributes.allowattack." + player.getUniqueId().toString(), ModMode.getInstance().getConfig().getBoolean("allowAttack"));
         return ModMode.getInstance().getConfig().getBoolean("allowAttack");
+    }
+
+    public static void setIsAllowedToBreakProtectedBlocks(Player player, Boolean value){
+        if(breakingProtectedBlocks.contains(player.getUniqueId()) && !value){
+            breakingProtectedBlocks.remove(player.getUniqueId());
+        } else if (value) {
+            breakingProtectedBlocks.add(player.getUniqueId());
+        }
+    }
+
+    public static boolean isAllowedToBreakProtectedBlocks(Player player){
+        return breakingProtectedBlocks.contains(player.getUniqueId());
     }
 }

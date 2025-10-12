@@ -1,6 +1,7 @@
 package com.tintingpatch.modMode.commands;
 
 import com.tintingpatch.modMode.ModMode;
+import com.tintingpatch.modMode.dependencies.SafetyBlocksManager;
 import com.tintingpatch.modMode.managers.AttributeManager;
 import com.tintingpatch.modMode.managers.ModeManager;
 import com.tintingpatch.modMode.managers.NotificationManager;
@@ -170,11 +171,30 @@ public class ModModeCommand implements CommandExecutor, TabCompleter {
                             AttributeManager.refreshAttributes(player);
                             player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
                             break;
+                        case "togglebreakprotectedblocks":
+                            if(!ModMode.getInstance().getSafetyBlocksManager().isUsingSafetyBlocks()){
+                                player.sendMessage("§c" + ModMode.getInstance().getConfig().getString("messages.safetyBlocksNotInstalled"));
+                                return true;
+                            }
+                            if(!player.hasPermission("modmode.attribute.changebreakprotectedblocks")){
+                                player.sendMessage("§c" + ModMode.getInstance().getConfig().getString("messages.nopermissions"));
+                                player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 1f);
+                                return true;
+                            }
+                            if(AttributeManager.isAllowedToBreakProtectedBlocks(player)){
+                                AttributeManager.setIsAllowedToBreakProtectedBlocks(player, false);
+                                player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
+                                player.sendMessage("§a" + ModMode.getInstance().getConfig().getString("messages.deactivatedtoBreakProtectedBlocks"));
+                            }else {
+                                AttributeManager.setIsAllowedToBreakProtectedBlocks(player, true);
+                                player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
+                                player.sendMessage("§a" + ModMode.getInstance().getConfig().getString("messages.activatedBreakProtectedBlocks"));
+                            }
+                            break;
                         default:
                             player.sendMessage(ModMode.getInstance().getConfig().getString("messages.unknownCommand"));
                             player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 1f);
                             break;
-
                     }
                 }
             }else {
@@ -240,6 +260,9 @@ public class ModModeCommand implements CommandExecutor, TabCompleter {
                     }
                     if(commandSender.hasPermission("modmode.attribute.changeallowattack")){
                         list.add("toggleallowattack");
+                    }
+                    if(ModMode.getInstance().getSafetyBlocksManager().isUsingSafetyBlocks() && commandSender.hasPermission("modmode.attribute.changebreakprotectedblocks")){
+                        list.add("togglebreakprotectedblocks");
                     }
                 }
             }

@@ -27,3 +27,5 @@ permissions:
     default: op
   modmode.attribute.changeallowattack:
     default: op
+  modmode.attribute.changebreakprotectedblocks:
+    default: op
