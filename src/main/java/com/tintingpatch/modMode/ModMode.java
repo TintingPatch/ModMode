@@ -1,6 +1,7 @@
 package com.tintingpatch.modMode;
 
 import com.tintingpatch.modMode.commands.ModModeCommand;
+import com.tintingpatch.modMode.dependencies.SafetyBlocksManager;
 import com.tintingpatch.modMode.listeners.AttackListener;
 import com.tintingpatch.modMode.listeners.JoinQuitListeners;
 import com.tintingpatch.modMode.managers.BStatsManager;
@@ -17,6 +18,8 @@ public final class ModMode extends JavaPlugin {
     static CustomConfig customConfig;
     static ModMode instance;
     final int pluginID = 27334;
+
+    SafetyBlocksManager safetyBlocksManager;
 
     @Override
     public void onEnable() {
@@ -53,11 +56,12 @@ public final class ModMode extends JavaPlugin {
             return;
         }
         instance = this;
-        getComponentLogger().info("ModMode by TintingPatch enabled");
+        getLogger().info("ModMode by TintingPatch enabled");
         saveDefaultConfig();
         customConfig = new CustomConfig("data.yml", getDataFolder());
         register();
         BStatsManager bStatsManager = new BStatsManager(this, pluginID);
+        safetyBlocksManager = new SafetyBlocksManager();
     }
 
     void register(){
@@ -70,6 +74,10 @@ public final class ModMode extends JavaPlugin {
         if(!this.production){
             this.getLogger().info("Debug: " + msg);
         }
+    }
+
+    public SafetyBlocksManager getSafetyBlocksManager() {
+        return safetyBlocksManager;
     }
 
     @Override

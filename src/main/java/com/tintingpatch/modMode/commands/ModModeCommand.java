@@ -4,7 +4,6 @@ import com.tintingpatch.modMode.ModMode;
 import com.tintingpatch.modMode.managers.AttributeManager;
 import com.tintingpatch.modMode.managers.ModeManager;
 import com.tintingpatch.modMode.managers.NotificationManager;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -12,14 +11,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ModModeCommand implements CommandExecutor, TabCompleter {
     @Override
-    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         if(args.length == 0 || (args.length == 1 && args[0].equals("toggle"))){
             if(commandSender instanceof Player){
                 Player player = (Player) commandSender;
@@ -197,7 +195,7 @@ public class ModModeCommand implements CommandExecutor, TabCompleter {
     }
 
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+    public List<String> onTabComplete(CommandSender commandSender,Command command, String alias, String[] args) {
         ArrayList<String> list = new ArrayList<>();
         ArrayList<String> returnList = new ArrayList<>();
 
