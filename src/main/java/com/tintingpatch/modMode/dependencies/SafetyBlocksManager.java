@@ -1,10 +1,14 @@
 package com.tintingpatch.modMode.dependencies;
 
+import com.tintingpatch.modMode.ModMode;
+import com.tintingpatch.modMode.managers.ModeManager;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
 public class SafetyBlocksManager {
-    HashMap<UUID, Boolean> isAllowedToBreak = new HashMap();
+    ArrayList<UUID> playersAllowedToBreak = new ArrayList<>();
     boolean usingSafetyBlocks = false;
 
     public SafetyBlocksManager(){
@@ -20,10 +24,21 @@ public class SafetyBlocksManager {
     }
 
     public void setIsAllowedToBreak(UUID player, boolean value){
-        isAllowedToBreak.put(player, value);
+        ModMode.getInstance().debugLog("Player " + player + " allowed to break protected blocks: " + value);
+        if(playersAllowedToBreak.contains(player)){
+            if(value) {
+                return;
+            }
+            playersAllowedToBreak.remove(player);
+        }else if (value){
+            playersAllowedToBreak.add(player);
+        }
+
+        ModMode.getInstance().debugLog("Player " + player + " allowed to break protected blocks confirm: " + isAllowedToBreak(player) + ". This value represents if the player could destroy other protected blocks right now.");
+
     }
 
     public boolean isAllowedToBreak(UUID player){
-        return isAllowedToBreak.get(player);
+        return playersAllowedToBreak.contains(player) && ModeManager.isInModMode(player);
     }
 }

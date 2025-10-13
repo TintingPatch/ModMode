@@ -1,6 +1,7 @@
 package com.tintingpatch.modMode.managers;
 
 import com.tintingpatch.modMode.ModMode;
+import com.tintingpatch.modMode.dependencies.SafetyBlocksManager;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
@@ -10,7 +11,6 @@ import java.util.UUID;
 public class AttributeManager {
     public static ArrayList<UUID> invinciblePlayers = new ArrayList<>();
     public static ArrayList<UUID> nonAttackingPlayers = new ArrayList<>();
-    public static ArrayList<UUID> breakingProtectedBlocks = new ArrayList<>();
 
     public static void refreshAttributes(Player player){
         if(ModeManager.isInModMode(player.getUniqueId())){
@@ -50,7 +50,7 @@ public class AttributeManager {
             if(nonAttackingPlayers.contains(player.getUniqueId())){
                 nonAttackingPlayers.remove(player.getUniqueId());
             }
-            if(breakingProtectedBlocks.contains(player.getUniqueId())) breakingProtectedBlocks.remove(player.getUniqueId());
+            if(ModMode.getInstance().getSafetyBlocksManager().isAllowedToBreak(player.getUniqueId())) ModMode.getInstance().getSafetyBlocksManager().setIsAllowedToBreak(player.getUniqueId(), false);
         }
 
     }
@@ -108,14 +108,10 @@ public class AttributeManager {
     }
 
     public static void setIsAllowedToBreakProtectedBlocks(Player player, Boolean value){
-        if(breakingProtectedBlocks.contains(player.getUniqueId()) && !value){
-            breakingProtectedBlocks.remove(player.getUniqueId());
-        } else if (value) {
-            breakingProtectedBlocks.add(player.getUniqueId());
-        }
+        ModMode.getInstance().getSafetyBlocksManager().setIsAllowedToBreak(player.getUniqueId(), value);
     }
 
     public static boolean isAllowedToBreakProtectedBlocks(Player player){
-        return breakingProtectedBlocks.contains(player.getUniqueId());
+        return ModMode.getInstance().getSafetyBlocksManager().isAllowedToBreak(player.getUniqueId());
     }
 }
